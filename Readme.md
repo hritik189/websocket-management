@@ -14,7 +14,7 @@ Before running the tests, ensure you have the following installed:
 
 1. Clone the repository and navigate to the project directory:
    ```
-   git clone <repository-url>
+   git clone https://github.com/hritik189/websocket-management.git
    cd websocket-management
    ```
 
