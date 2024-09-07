@@ -1,0 +1,22 @@
+{
+  "name": "websocket-management",
+  "version": "1.0.0",
+  "description": "WebSocket connection management project",
+  "type": "module",
+  "main": "src/app.js",
+  "scripts": {
+    "dev": " nodemon src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.6.1",
+    "morgan": "^1.10.0",
+    "redis": "^4.7.0",
+    "ws": "^8.18.0"
+  }
+}
