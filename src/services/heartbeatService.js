@@ -1,7 +1,7 @@
-import { updateLastHeartbeat, getActiveConnectionsCount } from './conncectionService.js';
+import { updateLastHeartbeat, getActiveConnectionsCount } from "./connectionService.js"
 
-const MIN_INTERVAL = 10000; // 10 seconds
-const MAX_INTERVAL = 60000; // 1 minute
+let MIN_INTERVAL = 10000; // 10 seconds
+let MAX_INTERVAL = 60000; // 1 minute
 
 export const startHeartbeat = (ws, connection) => {
     let interval = MIN_INTERVAL;
@@ -31,3 +31,7 @@ const calculateHeartbeatInterval = (activeConnections) => {
     return MIN_INTERVAL + scaleFactor * (MAX_INTERVAL - MIN_INTERVAL);
 };
 
+export const updateHeartbeatIntervals = (minInterval, maxInterval) => {
+    MIN_INTERVAL = minInterval;
+    MAX_INTERVAL = maxInterval;
+};

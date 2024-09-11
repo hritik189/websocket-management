@@ -1,4 +1,4 @@
-import Connection from '../models/connection.js';
+import Connection from '../models/Connection.js';
 
 export const updateLastHeartbeat = async (connectionId) => {
     await Connection.findByIdAndUpdate(connectionId, { lastHeartbeat: Date.now() });

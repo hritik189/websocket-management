@@ -31,3 +31,10 @@ const processMessageQueue = async (ws) => {
         await Message.findByIdAndUpdate(message._id, { sent: true });
     }
 };
+
+export const clearQueue = async () => {
+    while (!messageQueue.isEmpty()) {
+        messageQueue.dequeue();
+    }
+    await Message.deleteMany({ sent: false });
+};

@@ -1,38 +1,20 @@
 import express from 'express';
-import Connection from '../models/Connection.js';
-import Message from '../models/Message.js';
+import { getActiveConnections, getConnectionStats, disconnectClient } from '../controllers/connectionController.js';
+import { getMessageStats, clearMessageQueue } from '../controllers/messageController.js';
+import { updateHeartbeatSettings } from '../controllers/heartbeatController.js';
 
 const router = express.Router();
 
-// Get all active connections
-router.get('/connections', async (req, res) => {
-  try {
-    const connections = await Connection.find();
-    res.json(connections);
-  } catch (error) {
-    res.status(500).json({ error: 'Server error' });
-  }
-});
+// Connection related endpoints
+router.get('/connections', getActiveConnections);
+router.get('/connections/stats', getConnectionStats);
+router.post('/connections/disconnect', disconnectClient);
 
-// Get connection statistics
-router.get('/stats', async (req, res) => {
-  try {
-    const connectionCount = await Connection.countDocuments();
-    const messageCount = await Message.countDocuments();
-    res.json({ connections: connectionCount, messages: messageCount });
-  } catch (error) {
-    res.status(500).json({ error: 'Server error' });
-  }
-});
+// Message related endpoints
+router.get('/messages/stats', getMessageStats);
+router.post('/messages/clear-queue', clearMessageQueue);
 
-// Get recent messages
-router.get('/messages', async (req, res) => {
-  try {
-    const messages = await Message.find().sort({ createdAt: -1 }).limit(10);
-    res.json(messages);
-  } catch (error) {
-    res.status(500).json({ error: 'Server error' });
-  }
-});
+// Heartbeat related endpoints
+router.post('/heartbeat/settings', updateHeartbeatSettings);
 
 export default router;

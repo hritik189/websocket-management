@@ -1,7 +1,9 @@
+import { redisClient } from '../config/redis.js';
+
 const CONNECTIONS_EXPIRY = 60; // 1 minute
 const MESSAGES_EXPIRY = 60; // 1 minute
 
-export const throttleConnection = async (clientId, redisClient) => {
+export const throttleConnection = async (clientId) => {
   const connectionsKey = `connections:${clientId}`;
   const connections = await redisClient.incr(connectionsKey);
   await redisClient.expire(connectionsKey, CONNECTIONS_EXPIRY);
@@ -9,7 +11,7 @@ export const throttleConnection = async (clientId, redisClient) => {
   return connections > parseInt(process.env.MAX_CONNECTIONS_PER_CLIENT);
 };
 
-export const rateLimitMessages = async (clientId, redisClient) => {
+export const rateLimitMessages = async (clientId) => {
   const messagesKey = `messages:${clientId}`;
   const messages = await redisClient.incr(messagesKey);
   await redisClient.expire(messagesKey, MESSAGES_EXPIRY);

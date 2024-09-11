@@ -1,7 +1,7 @@
 import { throttleConnection, rateLimitMessages } from '../utils/rateLimiter.js';
 import { handleMessage } from '../services/messageService.js';
 import { startHeartbeat } from '../services/heartbeatService.js';
-import Connection from '../models/connection.js';
+import Connection from '../models/Connection.js';
 
 export const handleConnection = async (ws, redisClient) => {
     const clientId = ws._socket.remoteAddress;
