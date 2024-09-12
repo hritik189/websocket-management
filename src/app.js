@@ -5,11 +5,14 @@ import connectDB from './config/database.js';
 import setupWebSocket from './config/websocket.js';
 import apiRoutes from './routes/api.js';
 import { connectRedis } from './config/redis.js';
+import morgan from 'morgan';
 
 dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
+
+app.use(morgan('dev'));
 
 connectDB();
 connectRedis();

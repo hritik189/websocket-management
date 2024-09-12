@@ -26,7 +26,7 @@ Before running the tests, ensure you have the following installed:
 3. Set up your environment variables by copying the `.env.example` file to `.env` and filling in your specific values:
    ```
    PORT=3000
-   MONGODB_URI=mongodb://localhost:27017/websocket_db
+   MONGODB_URI=mongodb://localhost:27017/
    REDIS_URL=redis://localhost:6379
    MAX_CONNECTIONS_PER_CLIENT=5
    MAX_MESSAGES_PER_MINUTE=60
@@ -43,7 +43,7 @@ Start the server in development mode:
 npm run dev
 ```
 
-The server should now be running on `http://localhost:3000` (or the port specified in your `.env` file).
+The server should now be running on `http://localhost:8000` (or the port specified in your `.env` file).
 
 
 
@@ -56,28 +56,57 @@ The server should now be running on `http://localhost:3000` (or the port specifi
 
    a. Get all active connections:
    - Method: GET
-   - URL: http://localhost:3000/api/connections
+   - URL: http://localhost:8000/api/connections
 
    b. Get connection statistics:
    - Method: GET
-   - URL: http://localhost:3000/api/stats
+   - URL: http://localhost:8000/api/connections/stats
 
-   c. Get recent messages:
+   c. Disconnect a Client:
+   - Method: POST
+   - URL: http://localhost:8000/api/connections/disconnect
+  
+   ```json
+   {
+      "clientId": "::ffff:127.0.0.1"
+   }
+   ```
+
+   d. Get Message Statistics:
    - Method: GET
-   - URL: http://localhost:3000/api/messages
+   - URL: http://localhost:8000/api/messages/stats
+
+   e. Clear Message Queue:
+   - Method: POST
+   - URL: http://localhost:8000/api/messages/clear-queue
+
+   f. Update Heartbeat Settings
+   - Method: POST
+   - URL: http://localhost:8000/api/heartbeat/settings
+
+    ```json
+   {
+      "minInterval": 5000,
+      "maxInterval": 30000
+   }
+   ```
+
 
 2. Send each request and verify that you receive a JSON response with the expected data.
 
 ### Testing WebSocket Connection
 
 1. In Postman, create a new WebSocket request:
-   - URL: ws://localhost:3000
+   - URL: `ws://localhost:8000`
 
 2. Click "Connect" to establish the WebSocket connection.
 
 3. Once connected, you can send messages in the following format:
    ```json
-   {"content": "Your message here", "priority": 1}
+   {
+      "content": "Hello WebSocket!!",
+      "priority": 1
+   }
    ```
 
 4. Observe the server's responses in the messages list.
