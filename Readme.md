@@ -25,7 +25,7 @@ Before running the tests, ensure you have the following installed:
 
 3. Set up your environment variables by copying the `.env.example` file to `.env` and filling in your specific values:
    ```
-   PORT=3000
+   PORT=8000
    MONGODB_URI=mongodb://localhost:27017/
    REDIS_URL=redis://localhost:6379
    MAX_CONNECTIONS_PER_CLIENT=5
